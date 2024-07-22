@@ -1,0 +1,42 @@
+services:
+  api:
+    build:
+      container_name: "tasko-api"
+      dockerfile: Dockerfile
+      context: .
+      target: development
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run dev
+    ports:
+      - 8000:8000
+    networks:
+      - tasko_network
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres
+    container_name: "tasko-database-"
+    restart: always
+    networks:
+      - tasko_network
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - '${POSTGRES_PORT}:${POSTGRES_PORT}'
+    volumes:
+      - tasko-postgres:/var/lib/postgresql/data
+
+networks:
+  tasko_network:
+    driver: bridge
+
+volumes:
+  tasko-postgres:

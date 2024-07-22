@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String        @id @default(uuid())
+  name         String
+  nif          String        @unique
+  email        String        @unique
+  phone        String        @unique
+  password     String
+  addressID    String?
+  role         Role
+  services     Service[]     @relation("ProviderServices")
+  transactions Transaction[] @relation("UserTransactions")
+  address      Address?      @relation("UserAddress", fields: [addressID], references: [id])
+  createdAt    DateTime?     @default(now())
+  updatedAt    DateTime?     @updatedAt
+  deletedAt    DateTime?
+  Wallet       Wallet[]
+
+  @@index([email])
+}
+
+model Address {
+  id          String  @id @default(uuid())
+  country     String?
+  province    String?
+  city        String?
+  district    String?
+  street      String?
+  number      String?
+  fullAddress String?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  users User[] @relation("UserAddress")
+
+  services Service[] @relation("ServiceAddress")
+}
+
+model Wallet {
+  id           String        @id @default(uuid())
+  balance      Float         @default(0)
+  user         User          @relation(fields: [userID], references: [id])
+  userID       String
+  transactions Transaction[] @relation("WalletTransactions")
+  createdAt    DateTime?     @default(now())
+  updatedAt    DateTime?     @updatedAt
+  deletedAt    DateTime?
+}
+
+model Service {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  price       Float
+  date        DateTime
+  addressID   String?
+
+  provider   User     @relation("ProviderServices", fields: [providerID], references: [id])
+  providerID String
+  address    Address? @relation("ServiceAddress", fields: [addressID], references: [id])
+
+  clients   Transaction[] @relation("ServiceTransactions")
+  createdAt DateTime?     @default(now())
+  updatedAt DateTime?     @updatedAt
+  deletedAt DateTime?
+}
+
+model Transaction {
+  id          String          @id @default(uuid())
+  amount      Float
+  type        TransactionType
+  date        DateTime        @default(now())
+  description String?
+  user        User            @relation("UserTransactions", fields: [userID], references: [id])
+  userID      String
+  wallet      Wallet          @relation("WalletTransactions", fields: [walletID], references: [id])
+  walletID    String
+  service     Service?        @relation("ServiceTransactions", fields: [serviceID], references: [id])
+  serviceID   String?
+  createdAt   DateTime?       @default(now())
+  updatedAt   DateTime?       @updatedAt
+  deletedAt   DateTime?
+}
+
+enum Role {
+  CLIENT
+  PROVIDER
+}
+
+enum TransactionType {
+  CREDIT
+  DEBIT
+}
