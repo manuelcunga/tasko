@@ -10,4 +10,5 @@ export enum messages {
   InvalidTransactionUpdate = 'Cannot update description of a deleted transaction.',
   nifAlreadyExists = 'Ops, Nif já existe',
   phoneAlreadyExists = 'Ops, número de telefone já existe',
+  serviceNotFound = 'Ops,serviço não encontrado',
 }

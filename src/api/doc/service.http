@@ -1,0 +1,35 @@
+POST http://localhost:9000/api/v1/services/create
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikx1Y2VsaWEgTmdvbGEiLCJzdWIiOiIzMDBmMDJiNC01ZjBiLTRmYWYtYTJiNC1hZDI1ZThiMWU0YmQiLCJpYXQiOjE3MjE3NjMzNDIsImV4cCI6MTcyMjM2ODE0Mn0.GJiGFEl1sd0YLaXSadOzYVKAnL-kZfO8deYrRUfb4-c
+
+{
+    "title": "Desenvolvedor back end",
+    "description": "Grande trabalho",
+    "price": 10,
+    "date": "2024-07-23T14:30:00Z",
+    "addressID": "868a0ba8-476e-430f-9e8f-3639d6d86b05"
+}
+
+###
+GET http://localhost:9000/api/v1/services
+Content-Type: application/json
+
+
+###
+GET  http://localhost:9000/api/v1/services/9d0a159c-2f8e-4fa5-8686-68b90b1e5c11
+content-type: application/json
+
+
+###
+PUT  http://localhost:9000/api/v1/services/9d0a159c-2f8e-4fa5-8686-68b90b1e5c11
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikx1Y2VsaWEgTmdvbGEiLCJzdWIiOiIzMDBmMDJiNC01ZjBiLTRmYWYtYTJiNC1hZDI1ZThiMWU0YmQiLCJpYXQiOjE3MjE3NjMzNDIsImV4cCI6MTcyMjM2ODE0Mn0.GJiGFEl1sd0YLaXSadOzYVKAnL-kZfO8deYrRUfb4-c
+
+{
+    "title": "Golang Engineer"
+}
+
+####
+DELETE   http://localhost:9000/api/v1/services/9d0a159c-2f8e-4fa5-8686-68b90b1e5c11
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikx1Y2VsaWEgTmdvbGEiLCJzdWIiOiIzMDBmMDJiNC01ZjBiLTRmYWYtYTJiNC1hZDI1ZThiMWU0YmQiLCJpYXQiOjE3MjE3NjMzNDIsImV4cCI6MTcyMjM2ODE0Mn0.GJiGFEl1sd0YLaXSadOzYVKAnL-kZfO8deYrRUfb4-c

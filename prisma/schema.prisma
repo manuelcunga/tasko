@@ -14,21 +14,23 @@ generator client {
 }
 
 model User {
-  id           String        @id @default(uuid())
+  id           String         @id @default(uuid())
   name         String
-  nif          String        @unique
-  email        String        @unique
-  phone        String        @unique
+  nif          String         @unique
+  email        String         @unique
+  phone        String         @unique
   password     String
   addressID    String?
   role         UserRole
-  services     Service[]     @relation("ProviderServices")
-  transactions Transaction[] @relation("UserTransactions")
-  address      Address?      @relation("UserAddress", fields: [addressID], references: [id])
-  createdAt    DateTime?     @default(now())
-  updatedAt    DateTime?     @updatedAt
+  services     Service[]      @relation("ProviderServices")
+  transactions Transaction[]  @relation("UserTransactions")
+  address      Address?       @relation("UserAddress", fields: [addressID], references: [id])
+  createdAt    DateTime?      @default(now())
+  updatedAt    DateTime?      @updatedAt
   deletedAt    DateTime?
   Wallet       Wallet[]
+  Notification Notification[]
+  Contract     Contract[]
 
   @@index([email])
 }
@@ -75,10 +77,11 @@ model Service {
   providerID String
   address    Address? @relation("ServiceAddress", fields: [addressID], references: [id])
 
-  clients   Transaction[] @relation("ServiceTransactions")
-  createdAt DateTime?     @default(now())
-  updatedAt DateTime?     @updatedAt
-  deletedAt DateTime?
+  transaction Transaction[] @relation("ServiceTransactions")
+  createdAt   DateTime?     @default(now())
+  updatedAt   DateTime?     @updatedAt
+  deletedAt   DateTime?
+  Contract    Contract[]
 }
 
 model Transaction {
@@ -98,10 +101,41 @@ model Transaction {
   deletedAt   DateTime?
 }
 
+model Notification {
+  id        String    @id @default(uuid())
+  userID    String
+  user      User      @relation(fields: [userID], references: [id])
+  message   String
+  read      Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model Contract {
+  id           String         @id @default(uuid())
+  clientId     String
+  serviceId    String
+  contractDate DateTime       @default(now())
+  status       ContractStatus
+  userId       String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  User      User?    @relation(fields: [userId], references: [id])
+  Service   Service  @relation(fields: [serviceId], references: [id])
+}
+
 enum UserRole {
   CLIENT
   PROVIDER
   ADMIN
+}
+
+enum ContractStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
 }
 
 enum TransactionType {

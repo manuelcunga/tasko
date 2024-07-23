@@ -1,6 +1,9 @@
-POST https://super-space-guide-jw77jxxw92qjrr-9000.app.github.dev/api/v1/adaddress/create
+POST http://localhost:9000/api/v1/adaddress/create
 content-type: application/json
 
 {
-    "city": "Luanda"
+    "city": "Luanda",
+    "country": "Luanda",
+    "province": "Luanda"
+
 }
