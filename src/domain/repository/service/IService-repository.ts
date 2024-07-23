@@ -6,6 +6,6 @@ export abstract class IServiceRepository {
   abstract create(data: CreateUserInput): Promise<UserOutput>;
   abstract findAll(): Promise<UserOutput[]>;
   abstract findByID(id: string): Promise<UserOutput>;
-  abstract remove({ id }: { id: string }): Promise<void>;
+  abstract remove(id: string): Promise<void>;
   abstract update(id: string, user: UpdateUserInput): Promise<UserOutput>;
 }
