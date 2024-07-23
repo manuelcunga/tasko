@@ -8,4 +8,6 @@ export enum messages {
   ForbiddenEndpoint = 'Você não tem permissão para acessar este recurso. Verifique suas permissões e tente novamente.',
   InvalidTransactionOperation = 'Transaction is already deleted.',
   InvalidTransactionUpdate = 'Cannot update description of a deleted transaction.',
+  nifAlreadyExists = 'Ops, Nif já existe',
+  phoneAlreadyExists = 'Ops, número de telefone já existe',
 }

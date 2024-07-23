@@ -7,6 +7,8 @@ export abstract class IUserRepository {
   abstract create(data: CreateUserInput): Promise<UserOutput>;
   abstract findAll(): Promise<UserOutput[]>;
   abstract findByID(id: string): Promise<UserOutput>;
+  abstract findByNif(nif: string): Promise<UserOutput>;
+  abstract findByPhone(phone: string): Promise<UserOutput>;
   abstract findByEmail(email: string): Promise<UserOutput | null>;
   abstract remove(userID: string): Promise<void>;
   abstract update(id: string, user: UpdateUserInput): Promise<UserOutput>;

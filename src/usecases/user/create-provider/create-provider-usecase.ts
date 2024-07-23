@@ -10,7 +10,7 @@ import { IWalletRepository } from 'src/domain/repository/wallet/Iwallet-reposito
 import { WalletEntity } from 'src/domain/wallet/wallet';
 
 @Injectable()
-export class CreateUserUsecase {
+export class CreateuserProviderUsecase {
   constructor(
     private userRepo: IUserRepository,
     private IWalletRepo: IWalletRepository,
@@ -55,7 +55,7 @@ export class CreateUserUsecase {
       phone: userEntity.phone,
       password: await generateHash(userEntity.password),
       addressID: userEntity.addressID,
-      role: UserRole.CLIENT,
+      role: UserRole.PROVIDER,
     });
 
     const walletEntity = new WalletEntity(20000, newUser.id);

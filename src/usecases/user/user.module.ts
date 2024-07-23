@@ -18,6 +18,8 @@ import { FindAllUserController } from 'src/infra/api/rest/controllers/user/findA
 import { UpdateUserController } from 'src/infra/api/rest/controllers/user/update/update-user-controller';
 import { DeleteUserUserController } from 'src/infra/api/rest/controllers/user/remove/remove-user-controller';
 import { ProfileUserController } from 'src/infra/api/rest/controllers/user/profile/profile-user-controller';
+import { CreateProviderUserController } from 'src/infra/api/rest/controllers/user/create-provider/create-provider-user-controller';
+import { CreateuserProviderUsecase } from './create-provider/create-provider-usecase';
 
 @Module({
   imports: [PrismaModule],
@@ -42,6 +44,7 @@ import { ProfileUserController } from 'src/infra/api/rest/controllers/user/profi
     UpdateUserUsecase,
     DeleteUserUsecase,
     ProfileUserUsecase,
+    CreateuserProviderUsecase,
   ],
 
   controllers: [
@@ -51,6 +54,7 @@ import { ProfileUserController } from 'src/infra/api/rest/controllers/user/profi
     UpdateUserController,
     DeleteUserUserController,
     ProfileUserController,
+    CreateProviderUserController,
   ],
 })
 export class UserModule {}

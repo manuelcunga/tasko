@@ -76,4 +76,24 @@ export class PrismaUserRepository implements IUserRepository {
     });
     return user;
   }
+
+  async findByNif(nif: string): Promise<UserOutput> {
+    const user = await this.prisma.user.findFirst({
+      where: { nif },
+      include: {
+        address: true,
+      },
+    });
+    return user;
+  }
+
+  async findByPhone(phone: string): Promise<UserOutput> {
+    const user = await this.prisma.user.findFirst({
+      where: { phone },
+      include: {
+        address: true,
+      },
+    });
+    return user;
+  }
 }

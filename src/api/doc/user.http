@@ -12,6 +12,19 @@ content-type: application/json
     "addressID": "ewdwdwwewewewe"
 }
 
+###
+POST https://super-space-guide-jw77jxxw92qjrr-9000.app.github.dev/api/v1/auth/provider/signup
+content-type: application/json
+
+{
+    "name": "Lucelia Ngola",
+    "email": "lucelia@gmail.com",
+    "password": "123456789",
+    "nif": "KKKDSLAMADA",
+    "phone":"123as44343",
+    "addressID": "ewdwdwwewewewe"
+}
+
 
 ###
 POST https://super-space-guide-jw77jxxw92qjrr-9000.app.github.dev/api/v1/auth/sign-in
