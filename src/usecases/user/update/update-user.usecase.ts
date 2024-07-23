@@ -1,46 +1,51 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { UpdateUserInput } from '../dtos/update-user-input';
 import { messages } from 'src/shared/utils/errors-messages';
-import { IAddressRepository } from 'src/domain/repository/address/IAddress-repository';
-import { CreateAddressInput } from 'src/usecases/address/dtos/create-address.input';
 import { IUserRepository } from 'src/domain/repository/user/IUser-repository';
 
 @Injectable()
 export class UpdateUserUsecase {
-  constructor(
-    private userRepository: IUserRepository,
-    private iaddresRepository: IAddressRepository,
-  ) {}
+  constructor(private userRepository: IUserRepository) {}
 
-  async update(
-    updateUserDTO: UpdateUserInput,
-    addressInput: CreateAddressInput,
-  ) {
-    try {
-      const checkAddress = await this.iaddresRepository.findById(
-        updateUserDTO.addressID,
-      );
+  async execute(updateUserDTO: UpdateUserInput) {
+    const checkUser = await this.userRepository.findByID(updateUserDTO.id);
 
-      if (!checkAddress) {
-        throw new NotFoundException(messages.addressNotfound);
-      }
-
-      const checkUser = await this.userRepository.findByID(updateUserDTO.id);
-
-      if (!checkUser) {
-        throw new NotFoundException(messages.userNotFound);
-      }
-
-      const address = await this.iaddresRepository.create(addressInput);
-
-      updateUserDTO.addressID = address.id;
-      const user = await this.userRepository.update(
-        updateUserDTO.id,
-        updateUserDTO,
-      );
-      return user;
-    } catch (error) {
-      throw new Error(messages.InternalServerError);
+    if (!checkUser) {
+      throw new NotFoundException(messages.userNotFound);
     }
+
+    if (updateUserDTO.name !== undefined && updateUserDTO.name.trim() !== '') {
+      checkUser.name = updateUserDTO.name;
+    }
+    if (
+      updateUserDTO.email !== undefined &&
+      updateUserDTO.email.trim() !== ''
+    ) {
+      checkUser.email = updateUserDTO.email;
+    }
+    if (updateUserDTO.nif !== undefined && updateUserDTO.nif.trim() !== '') {
+      checkUser.nif = updateUserDTO.nif;
+    }
+    if (
+      updateUserDTO.phone !== undefined &&
+      updateUserDTO.phone.trim() !== ''
+    ) {
+      checkUser.phone = updateUserDTO.phone;
+    }
+    if (
+      updateUserDTO.addressID !== undefined &&
+      updateUserDTO.addressID.trim() !== ''
+    ) {
+      checkUser.addressID = updateUserDTO.addressID;
+    }
+    if (
+      updateUserDTO.password !== undefined &&
+      updateUserDTO.password.trim() !== ''
+    ) {
+      checkUser.password = updateUserDTO.password;
+    }
+
+    const user = await this.userRepository.update(checkUser.id, updateUserDTO);
+    return user;
   }
 }

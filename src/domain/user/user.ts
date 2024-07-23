@@ -1,5 +1,4 @@
-import { User } from '@prisma/client';
-import { UserRole } from 'src/shared/utils/enums';
+import { User, UserRole } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 
 export class UserEntity implements User {
@@ -54,5 +53,35 @@ export class UserEntity implements User {
     if (!this.validateEmail()) {
       throw new Error('Invalid email format');
     }
+  }
+
+  updateUser(fields: Partial<UserEntity>): void {
+    if (this.deletedAt !== null) {
+      throw new Error('Cannot update a deleted user.');
+    }
+
+    if (fields.name !== undefined && fields.name.trim() !== '') {
+      this.name = fields.name;
+    }
+    if (fields.email !== undefined && fields.email.trim() !== '') {
+      this.email = fields.email;
+      if (!this.validateEmail()) {
+        throw new Error('Invalid email format');
+      }
+    }
+    if (fields.nif !== undefined && fields.nif.trim() !== '') {
+      this.nif = fields.nif;
+    }
+    if (fields.phone !== undefined && fields.phone.trim() !== '') {
+      this.phone = fields.phone;
+    }
+    if (fields.addressID !== undefined && fields.addressID.trim() !== '') {
+      this.addressID = fields.addressID;
+    }
+    if (fields.password !== undefined && fields.password.trim() !== '') {
+      this.password = fields.password;
+    }
+
+    this.updatedAt = new Date();
   }
 }

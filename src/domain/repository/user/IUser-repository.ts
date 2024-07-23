@@ -8,7 +8,7 @@ export abstract class IUserRepository {
   abstract findAll(): Promise<UserOutput[]>;
   abstract findByID(id: string): Promise<UserOutput>;
   abstract findByEmail(email: string): Promise<UserOutput | null>;
-  abstract remove({ id }: { id: string }): Promise<void>;
+  abstract remove(userID: string): Promise<void>;
   abstract update(id: string, user: UpdateUserInput): Promise<UserOutput>;
   abstract profile(userId: string): Promise<ProfileOutput>;
 }

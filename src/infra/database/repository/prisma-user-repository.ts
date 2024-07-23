@@ -33,7 +33,6 @@ export class PrismaUserRepository implements IUserRepository {
       where: { id },
       include: {
         address: true,
-        Preference: true,
       },
     });
     return user;
@@ -45,15 +44,24 @@ export class PrismaUserRepository implements IUserRepository {
 
     return user;
   }
-  async remove({ id }: { id: string }): Promise<void> {
+  async remove(userID: string): Promise<void> {
+    await this.prisma.wallet.deleteMany({
+      where: { userID: userID },
+    });
+
     await this.prisma.user.delete({
-      where: { id },
+      where: { id: userID },
     });
   }
-  async update(id: string, data: UpdateUserInput): Promise<UserOutput> {
+  async update(userID: string, data: UpdateUserInput): Promise<UserOutput> {
     const user = await this.prisma.user.update({
-      where: { id },
-      data: data,
+      where: { id: userID },
+      data: {
+        name: data.name,
+        email: data.email,
+        nif: data.nif,
+        phone: data.phone,
+      },
     });
 
     return user;

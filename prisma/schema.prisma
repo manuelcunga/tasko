@@ -21,7 +21,7 @@ model User {
   phone        String        @unique
   password     String
   addressID    String?
-  role         Role
+  role         UserRole
   services     Service[]     @relation("ProviderServices")
   transactions Transaction[] @relation("UserTransactions")
   address      Address?      @relation("UserAddress", fields: [addressID], references: [id])
@@ -98,9 +98,10 @@ model Transaction {
   deletedAt   DateTime?
 }
 
-enum Role {
+enum UserRole {
   CLIENT
   PROVIDER
+  ADMIN
 }
 
 enum TransactionType {

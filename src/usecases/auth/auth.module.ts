@@ -5,6 +5,7 @@ import { JwtStrategy } from './jwt-strategy/jwt.strategy.service';
 import { LoginService } from './login/login.service';
 import { PrismaUserRepository } from 'src/infra/database/repository/prisma-user-repository';
 import { IUserRepository } from 'src/domain/repository/user/IUser-repository';
+import { LoginUserController } from 'src/infra/api/rest/controllers/user/login/login-user-controller';
 
 @Module({
   imports: [
@@ -25,5 +26,7 @@ import { IUserRepository } from 'src/domain/repository/user/IUser-repository';
     LoginService,
     JwtStrategy,
   ],
+
+  controllers: [LoginUserController],
 })
 export class AuthModule {}

@@ -1,18 +1,23 @@
-import { IsString } from 'class-validator';
+import { IsOptional } from 'class-validator';
 
 export class UpdateUserInput {
-  id: string;
+  id?: string;
 
-  @IsString()
+  @IsOptional()
   name?: string;
 
+  @IsOptional()
   email?: string;
 
+  @IsOptional()
+  password?: string;
+
+  @IsOptional()
   phone?: string;
 
+  @IsOptional()
+  nif?: string;
+
+  @IsOptional()
   addressID?: string;
-
-  createdAt?: Date;
-
-  updatedAt: Date;
 }

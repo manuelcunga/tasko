@@ -6,13 +6,13 @@ import { messages } from 'src/shared/utils/errors-messages';
 export class DeleteUserUsecase {
   constructor(private readonly userRepository: IUserRepository) {}
 
-  async remove(id: string) {
+  async execute(userID: string) {
     try {
-      const user = await this.userRepository.findByID(id);
+      const user = await this.userRepository.findByID(userID);
       if (!user) {
         throw new NotFoundException(messages.userNotFound);
       }
-      return this.userRepository.remove({ id });
+      return this.userRepository.remove(userID);
     } catch (error) {
       throw new Error(messages.InternalServerError);
     }

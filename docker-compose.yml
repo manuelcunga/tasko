@@ -1,7 +1,8 @@
+
 services:
   api:
+    container_name: "tasko-api"
     build:
-      container_name: "tasko-api"
       dockerfile: Dockerfile
       context: .
       target: development
@@ -18,10 +19,10 @@ services:
     networks:
       - tasko_network
     depends_on:
-      - postgres
-  postgres:
+      - db
+  db:
     image: postgres
-    container_name: "tasko-database-"
+    container_name: "tasko-database"
     restart: always
     networks:
       - tasko_network

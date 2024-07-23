@@ -3,10 +3,10 @@ import { IUserRepository } from 'src/domain/repository/user/IUser-repository';
 import { messages } from 'src/shared/utils/errors-messages';
 
 @Injectable()
-export class FindOneUsecase {
+export class FindUserOneUsecase {
   constructor(private userRepository: IUserRepository) {}
 
-  async findOne(id: string) {
+  async execute(id: string) {
     try {
       const user = await this.userRepository.findByID(id);
 

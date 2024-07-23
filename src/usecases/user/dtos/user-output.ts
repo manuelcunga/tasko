@@ -1,4 +1,4 @@
-import { UserRole } from 'src/shared/utils/enums';
+import { UserRole } from '@prisma/client';
 
 export class UserOutput {
   id: string;
@@ -10,6 +10,8 @@ export class UserOutput {
   email: string;
 
   phone: string;
+
+  password?: string;
 
   addressID: string;
 

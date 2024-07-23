@@ -6,7 +6,7 @@ import { messages } from 'src/shared/utils/errors-messages';
 export class FindAllUserUsecase {
   constructor(private userRepository: IUserRepository) {}
 
-  async findAll() {
+  async execute() {
     try {
       return this.userRepository.findAll();
     } catch (error) {

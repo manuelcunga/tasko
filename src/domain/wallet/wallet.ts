@@ -1,5 +1,6 @@
 import { BadRequestException } from '@nestjs/common';
 import { Wallet } from '@prisma/client';
+import { v4 as uuidv4 } from 'uuid';
 
 export class WalletEntity implements Wallet {
   id: string;
@@ -9,8 +10,8 @@ export class WalletEntity implements Wallet {
   updatedAt: Date;
   deletedAt: Date | null;
 
-  constructor(id: string, balance: number, userID: string) {
-    this.id = id;
+  constructor(balance: number, userID: string, id?: string) {
+    this.id = id ?? uuidv4();
     this.balance = balance;
     this.userID = userID;
     this.createdAt = new Date();

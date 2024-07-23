@@ -1,4 +1,4 @@
-import { Role } from '@prisma/client';
+import { UserRole } from '@prisma/client';
 import { AddressEntity } from 'src/domain/address/address';
 
 export class ProfileOutput {
@@ -6,11 +6,9 @@ export class ProfileOutput {
 
   email: string;
 
-  password: string;
-
   phone: string;
 
-  role: Role;
+  role: UserRole;
 
   addressID: string;
 

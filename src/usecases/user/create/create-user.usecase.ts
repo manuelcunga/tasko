@@ -5,11 +5,16 @@ import { UserOutput } from '../dtos/user-output';
 import { CreateUserInput } from '../dtos/create-user-input';
 import { EmailValidator, generateHash } from 'src/shared/utils/utils';
 import { IUserRepository } from 'src/domain/repository/user/IUser-repository';
-import { UserRole } from 'src/shared/utils/enums';
+import { UserRole } from '@prisma/client';
+import { IWalletRepository } from 'src/domain/repository/wallet/Iwallet-repository';
+import { WalletEntity } from 'src/domain/wallet/wallet';
 
 @Injectable()
 export class CreateUserUsecase {
-  constructor(private userRepo: IUserRepository) {}
+  constructor(
+    private userRepo: IUserRepository,
+    private IWalletRepo: IWalletRepository,
+  ) {}
 
   async execute(data: CreateUserInput): Promise<UserOutput> {
     if (!EmailValidator(data.email)) {
@@ -38,6 +43,12 @@ export class CreateUserUsecase {
       password: await generateHash(userEntity.password),
       addressID: userEntity.addressID,
       role: UserRole.CLIENT,
+    });
+
+    const walletEntity = new WalletEntity(20000, newUser.id);
+    await this.IWalletRepo.create({
+      balance: walletEntity.balance,
+      userID: newUser.id,
     });
 
     return {
