@@ -7,8 +7,6 @@ export class TransactionEntity implements Transaction {
   id: string;
   amount: number;
   type: TransactionType;
-  date: Date;
-  description: string;
   userID: string;
   walletID: string;
   serviceID: string;
@@ -20,8 +18,6 @@ export class TransactionEntity implements Transaction {
     id: string,
     amount: number,
     type: TransactionType,
-    date: Date,
-    description: string,
     userID: string,
     walletID: string,
     serviceID: string,
@@ -29,8 +25,6 @@ export class TransactionEntity implements Transaction {
     this.id = id;
     this.amount = amount;
     this.type = type;
-    this.date = date;
-    this.description = description;
     this.userID = userID;
     this.walletID = walletID;
     this.serviceID = serviceID;
@@ -49,13 +43,6 @@ export class TransactionEntity implements Transaction {
     this.deletedAt = new Date();
   }
 
-  updateDescription(newDescription: string): void {
-    if (!this.isActive()) {
-      throw new BadRequestException(messages.InvalidTransactionUpdate);
-    }
-    this.description = newDescription;
-  }
-
   updateAmount(newAmount: number): void {
     if (!this.isActive()) {
       throw new BadRequestException(
@@ -70,11 +57,5 @@ export class TransactionEntity implements Transaction {
 
   isType(type: TransactionType): boolean {
     return this.type === type;
-  }
-
-  daysSinceTransaction(): number {
-    const now = new Date();
-    const diffTime = Math.abs(now.getTime() - this.date.getTime());
-    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   }
 }

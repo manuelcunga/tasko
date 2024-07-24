@@ -85,20 +85,18 @@ model Service {
 }
 
 model Transaction {
-  id          String          @id @default(uuid())
-  amount      Float
-  type        TransactionType
-  date        DateTime        @default(now())
-  description String?
-  user        User            @relation("UserTransactions", fields: [userID], references: [id])
-  userID      String
-  wallet      Wallet          @relation("WalletTransactions", fields: [walletID], references: [id])
-  walletID    String
-  service     Service?        @relation("ServiceTransactions", fields: [serviceID], references: [id])
-  serviceID   String?
-  createdAt   DateTime?       @default(now())
-  updatedAt   DateTime?       @updatedAt
-  deletedAt   DateTime?
+  id        String          @id @default(uuid())
+  amount    Float
+  type      TransactionType
+  user      User            @relation("UserTransactions", fields: [userID], references: [id])
+  userID    String
+  wallet    Wallet          @relation("WalletTransactions", fields: [walletID], references: [id])
+  walletID  String
+  service   Service?        @relation("ServiceTransactions", fields: [serviceID], references: [id])
+  serviceID String?
+  createdAt DateTime?       @default(now())
+  updatedAt DateTime?       @updatedAt
+  deletedAt DateTime?
 }
 
 model Notification {
@@ -113,16 +111,14 @@ model Notification {
 }
 
 model Contract {
-  id           String         @id @default(uuid())
-  clientId     String
-  serviceId    String
-  contractDate DateTime       @default(now())
-  status       ContractStatus
-  userId       String?
+  id        String         @id @default(uuid())
+  clientId  String
+  serviceId String
+  status    ContractStatus
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  User      User?    @relation(fields: [userId], references: [id])
+  User      User?    @relation(fields: [clientId], references: [id])
   Service   Service  @relation(fields: [serviceId], references: [id])
 }
 

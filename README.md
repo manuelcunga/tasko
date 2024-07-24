@@ -45,6 +45,8 @@ $ yarn run start:dev
 $ yarn run start:prod
 ```
 
+# OBS: Install the rest client vscode extesion to use the project doc in api/doc
+
 ## Test
 
 ```bash

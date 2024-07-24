@@ -21,7 +21,7 @@ export class PrismaWalletRepository implements IWalletRepository {
   }
 
   async findByID(id: string): Promise<WalletOutPut> {
-    const wallet = await this.prisma.wallet.findUnique({
+    const wallet = await this.prisma.wallet.findFirst({
       where: { id: id },
     });
     return wallet;
@@ -43,5 +43,21 @@ export class PrismaWalletRepository implements IWalletRepository {
     });
 
     return wallet;
+  }
+
+  async findByUserID(userID: string): Promise<WalletOutPut> {
+    const wallet = await this.prisma.wallet.findFirst({
+      where: {
+        userID,
+      },
+    });
+    return wallet;
+  }
+
+  async updateBalance(walletId: string, newBalance: number): Promise<void> {
+    await this.prisma.wallet.update({
+      where: { id: walletId },
+      data: { balance: newBalance },
+    });
   }
 }

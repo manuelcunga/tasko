@@ -1,11 +1,10 @@
-import { CreateUserInput } from 'src/usecases/user/dtos/create-user-input';
-import { UpdateUserInput } from 'src/usecases/user/dtos/update-user-input';
-import { UserOutput } from 'src/usecases/user/dtos/user-output';
+import { CreateTransacttionInput } from 'src/usecases/transition/dtos/create-transition.input';
+import { TransitionOutPut } from 'src/usecases/transition/dtos/transition-output';
 
 export abstract class ITransitionRepository {
-  abstract create(data: CreateUserInput): Promise<UserOutput>;
-  abstract findAll(): Promise<UserOutput[]>;
-  abstract findByID(id: string): Promise<UserOutput>;
-  abstract remove({ id }: { id: string }): Promise<void>;
-  abstract update(id: string, user: UpdateUserInput): Promise<UserOutput>;
+  abstract create(data: CreateTransacttionInput): Promise<TransitionOutPut>;
+  abstract findAll(): Promise<TransitionOutPut[]>;
+  abstract findByID(id: string): Promise<TransitionOutPut>;
+  abstract findAllByUserID(id: string): Promise<TransitionOutPut[]>;
+  abstract remove(transitionID: string): Promise<void>;
 }

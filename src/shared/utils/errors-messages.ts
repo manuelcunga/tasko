@@ -11,4 +11,7 @@ export enum messages {
   nifAlreadyExists = 'Ops, Nif já existe',
   phoneAlreadyExists = 'Ops, número de telefone já existe',
   serviceNotFound = 'Ops,serviço não encontrado',
+  walletNotFound = 'Wallet not found',
+  insufficientFunds = 'Insufficient funds',
+  contractNotFound = 'Ops, Contratação não existe',
 }
